@@ -29,6 +29,7 @@ export interface DraggableValue {
 	boundingElement?: HTMLElement;
 	boundingRectMargin?: MarginOptions;
 	initialPosition?: Position;
+	cssPosition?: string;
 }
 
 export interface DraggableBindings extends VNodeDirective {
@@ -111,7 +112,7 @@ export const Draggable: DirectiveOptions = {
 			if (stopDragging) {
 				return;
 			}
-			
+
 			let state = getState();
 			if (!state.startDragPosition || !state.initialMousePos) {
 				initializeState(event);
@@ -160,7 +161,7 @@ export const Draggable: DirectiveOptions = {
 				return;
 			}
 
-			el.style.position = "fixed";
+			el.style.position = binding.value.cssPosition || "fixed";
 			el.style.left = `${state.currentDragPosition.left}px`;
 			el.style.top = `${state.currentDragPosition.top}px`;
 		}

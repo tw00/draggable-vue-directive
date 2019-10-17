@@ -1,11 +1,14 @@
 "use strict";
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var ChangePositionType;
@@ -98,7 +101,7 @@ exports.Draggable = {
             if (!state.currentDragPosition) {
                 return;
             }
-            el.style.position = "fixed";
+            el.style.position = binding.value.cssPosition || "fixed";
             el.style.left = state.currentDragPosition.left + "px";
             el.style.top = state.currentDragPosition.top + "px";
         }
@@ -149,7 +152,7 @@ exports.Draggable = {
         }
         function setState(partialState) {
             var prevState = getState();
-            var state = __assign({}, prevState, partialState);
+            var state = __assign(__assign({}, prevState), partialState);
             handler.setAttribute("draggable-state", JSON.stringify(state));
         }
         function handlePositionChanged(event, changePositionType) {
